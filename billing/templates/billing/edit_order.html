@@ -1,0 +1,59 @@
+<form method="POST">
+    {% csrf_token %}
+    <div class="container mt-4">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Edit Order</h3>
+            </div>
+            <div class="card-body">
+                <!-- Customer Name -->
+                <div class="mb-3">
+                    <label for="customer_name" class="form-label">Customer Name</label>
+                    <input type="text" class="form-control" name="customer_name" value="{{ order.customer_name }}" required>
+                </div>
+
+                <!-- Table Number -->
+                <div class="mb-3">
+                    <label for="table_number" class="form-label">Table Number</label>
+                    <input type="text" class="form-control" name="table_number" value="{{ order.table_number }}">
+                </div>
+
+                <!-- Order Type -->
+                <div class="mb-3">
+                    <label for="order_type" class="form-label">Order Type</label>
+                    <select class="form-select" name="order_type">
+                        <option value="Dine-in" {% if order.order_type == "Dine-in" %}selected{% endif %}>Dine-in</option>
+                        <option value="Takeaway" {% if order.order_type == "Takeaway" %}selected{% endif %}>Takeaway</option>
+                    </select>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="mb-3">
+                    <label for="payment_method" class="form-label">Payment Method</label>
+                    <select class="form-select" name="payment_method">
+                        <option value="Cash" {% if order.payment_method == "Cash" %}selected{% endif %}>Cash</option>
+                        <option value="Card" {% if order.payment_method == "Card" %}selected{% endif %}>Card</option>
+                    </select>
+                </div>
+
+                <!-- Select Items -->
+                <h5 class="mt-4">Select Items:</h5>
+                {% for item in menu_items %}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="items" value="{{ item.id }}" 
+                               {% if item.id in selected_items %}checked{% endif %}>
+                        <label class="form-check-label">
+                            {{ item.name }} - ${{ item.price }}
+                        </label>
+                        <input type="number" class="form-control mt-1" name="quantity_{{ item.id }}" value="1" min="1">
+                    </div>
+                {% endfor %}
+
+                <!-- Save Changes Button -->
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

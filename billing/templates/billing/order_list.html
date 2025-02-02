@@ -1,0 +1,32 @@
+{% extends 'billing/base.html' %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Orders</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.customer_name }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <a href="{% url 'edit_order' order.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_order' order.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

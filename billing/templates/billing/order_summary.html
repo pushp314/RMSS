@@ -1,0 +1,81 @@
+{% extends 'billing/base.html' %}
+{% block title %}Order Summary{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Order Summary</h3>
+        </div>
+
+        <div class="card-body">
+            <h5 class="card-title">Customer: <strong>{{ order.customer_name }}</strong></h5>
+            <p><strong>Order Type:</strong> {{ order.order_type }}</p>
+            <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+            {% if order.table_number %}
+                <p><strong>Table Number:</strong> {{ order.table_number }}</p>
+            {% endif %}
+            <p class="text-muted">Order ID: {{ order.id }} | <small>Placed on {{ order.timestamp }}</small></p>
+
+            <!-- Responsive Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if order.orderitem_set.all %}
+                            {% for order_item in order.orderitem_set.all %}
+                            <tr>
+                                <td>{{ order_item.menu_item.name }}</td>
+                                <td>{{ order_item.quantity }}</td>
+                                <td>${{ order_item.menu_item.price }}</td>
+                                <td>${{ order_item.subtotal }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-danger">No items added to this order</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add Items Form -->
+            <h4>Add Items to Order</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="item_id" class="form-label">Select Item</label>
+                    {{ form.item_id }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    {{ form.quantity }}
+                </div>
+
+                <button type="submit" class="btn btn-success">Add Item</button>
+            </form>
+
+            <h4 class="text-end mt-3">Total Bill: <span class="text-success">${{ order.total_price }}</span></h4>
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{% url 'order_list' %}" class="btn btn-secondary">Back to Orders</a>
+        </div>
+    </div>
+</div>
+
+<!-- Fix for horizontal scrollbar: Ensure no overflow from body or table -->
+<style>
+    body {
+        overflow-x: hidden;
+    }
+</style>
+{% endblock %}
