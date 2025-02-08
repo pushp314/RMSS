@@ -9,6 +9,7 @@ class MenuItem(models.Model):
         return self.name
 
 
+
 class Order(models.Model):
     customer_name = models.CharField(max_length=100)
     table_number = models.IntegerField(null=True, blank=True)

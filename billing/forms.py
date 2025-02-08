@@ -10,3 +10,9 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['customer_name', 'table_number', 'order_type', 'payment_method']
+
+
+class MenuItemForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+        fields = ['name', 'price', 'category']

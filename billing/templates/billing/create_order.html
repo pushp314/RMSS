@@ -1,10 +1,11 @@
 {% extends 'billing/base.html' %}
 {% block title %}Create Order{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-            <h3>Create Order</h3>
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card shadow-lg p-4 rounded-3" style="max-width: 500px; width: 100%;">
+        <div class="card-header bg-primary text-white text-center rounded-3">
+            <h3><i class="fas fa-utensils"></i> Create Order</h3>
         </div>
         <div class="card-body">
             <form method="POST">
@@ -12,38 +13,38 @@
 
                 <!-- Customer Name -->
                 <div class="mb-3">
-                    <label for="customer_name" class="form-label">Customer Name:</label>
-                    <input type="text" name="customer_name" id="customer_name" class="form-control" required>
+                    <label for="customer_name" class="form-label"><i class="fas fa-user"></i> Customer Name:</label>
+                    <input type="text" name="customer_name" id="customer_name" class="form-control" placeholder="Enter customer name" required>
                 </div>
 
-                <!-- Table Number (Optional) -->
+                <!-- Table Number -->
                 <div class="mb-3">
-                    <label for="table_number" class="form-label">Table Number (if Dine-in):</label>
-                    <input type="number" name="table_number" id="table_number" class="form-control">
+                    <label for="table_number" class="form-label"><i class="fas fa-chair"></i> Table Number (if Dine-in):</label>
+                    <input type="number" name="table_number" id="table_number" class="form-control" placeholder="Enter table number (optional)">
                 </div>
 
                 <!-- Order Type -->
                 <div class="mb-3">
-                    <label class="form-label">Order Type:</label>
+                    <label class="form-label"><i class="fas fa-concierge-bell"></i> Order Type:</label>
                     <select name="order_type" class="form-select" required>
-                        <option value="Dine-in">Dine-in</option>
-                        <option value="Takeaway">Takeaway</option>
+                        <option value="Dine-in">🍽️ Dine-in</option>
+                        <option value="Takeaway">🥡 Takeaway</option>
                     </select>
                 </div>
 
                 <!-- Payment Method -->
                 <div class="mb-3">
-                    <label class="form-label">Payment Method:</label>
+                    <label class="form-label"><i class="fas fa-credit-card"></i> Payment Method:</label>
                     <select name="payment_method" class="form-select" required>
-                        <option value="Cash">Cash</option>
-                        <option value="Card">Card</option>
-                        <option value="UPI">UPI</option>
+                        <option value="Cash">💵 Cash</option>
+                        <option value="Card">💳 Card</option>
+                        <option value="UPI">📲 UPI</option>
                     </select>
                 </div>
 
-                <!-- Responsive Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success">Create Order</button>
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Create Order</button>
                 </div>
             </form>
         </div>

@@ -1,7 +1,9 @@
 {% extends 'billing/base.html' %}
+
 {% block title %}Order Summary{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white text-center">
             <h3>Order Summary</h3>
@@ -14,9 +16,9 @@
             {% if order.table_number %}
                 <p><strong>Table Number:</strong> {{ order.table_number }}</p>
             {% endif %}
-            <p class="text-muted">Order ID: {{ order.id }} | <small>Placed on {{ order.timestamp }}</small></p>
+            <p class="text-muted">Order ID: {{ order.id }} | <small>Placed on {{ order.timestamp|date:"M d, Y H:i A" }}</small></p>
 
-            <!-- Responsive Table -->
+            <!-- Responsive Table for Order Items -->
             <div class="table-responsive">
                 <table class="table table-bordered mt-3">
                     <thead class="table-dark">
@@ -46,8 +48,8 @@
                 </table>
             </div>
 
-            <!-- Add Items Form -->
-            <h4>Add Items to Order</h4>
+            <!-- Add Items to Order Form -->
+            <h4 class="mt-4">Add Items to Order</h4>
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -60,14 +62,15 @@
                     {{ form.quantity }}
                 </div>
 
-                <button type="submit" class="btn btn-success">Add Item</button>
+                <button type="submit" class="btn btn-success w-100">Add Item</button>
             </form>
 
+            <!-- Total Bill -->
             <h4 class="text-end mt-3">Total Bill: <span class="text-success">${{ order.total_price }}</span></h4>
         </div>
 
         <div class="card-footer text-center">
-            <a href="{% url 'order_list' %}" class="btn btn-secondary">Back to Orders</a>
+            <a href="{% url 'order_list' %}" class="btn btn-secondary w-100">Back to Orders</a>
         </div>
     </div>
 </div>

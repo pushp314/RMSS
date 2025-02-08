@@ -1,6 +1,6 @@
 <form method="POST">
     {% csrf_token %}
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="card shadow-lg">
             <div class="card-header bg-primary text-white text-center">
                 <h3>Edit Order</h3>
@@ -37,7 +37,7 @@
                 </div>
 
                 <!-- Select Items -->
-                <h5 class="mt-4">Select Items:</h5>
+                <h5 class="mt-4 mb-3">Select Items:</h5>
                 {% for item in menu_items %}
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="items" value="{{ item.id }}" 
@@ -45,7 +45,7 @@
                         <label class="form-check-label">
                             {{ item.name }} - ${{ item.price }}
                         </label>
-                        <input type="number" class="form-control mt-1" name="quantity_{{ item.id }}" value="1" min="1">
+                        <input type="number" class="form-control mt-2" name="quantity_{{ item.id }}" value="1" min="1">
                     </div>
                 {% endfor %}
 
